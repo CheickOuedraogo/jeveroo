@@ -1,11 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JAVEROO — Agence Digitale Premium | Création Web & Design | Burkina Faso</title>
+    <meta name="description" content="JAVEROO, agence digitale premium à Ouagadougou & Bobo-Dioulasso. Création de sites web, applications mobiles, design graphique, community management, montage vidéo et formations digitales pour PME au Burkina Faso.">
+    <meta name="keywords" content="JAVEROO, agence digitale, Burkina Faso, Ouagadougou, Bobo-Dioulasso, création site web, application mobile, design graphique, community management, formation digitale, e-commerce, PME Afrique">
+    <meta name="author" content="JAVEROO - Startup Digitale BF">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://javeroo.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://javeroo.com/">
+    <meta property="og:title" content="JAVEROO — Agence Digitale Premium | Burkina Faso">
+    <meta property="og:description" content="Création de sites web, design graphique, community management et formations digitales pour PME au Burkina Faso. Toujours en évolution.">
+    <meta property="og:image" content="https://javeroo.com/logo.png">
+    <meta property="og:locale" content="fr_BF">
+    <meta property="og:site_name" content="JAVEROO">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JAVEROO — Agence Digitale Premium">
+    <meta name="twitter:description" content="Services digitaux premium pour PME au Burkina Faso.">
+    <meta name="twitter:image" content="https://javeroo.com/logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0033A0">
+    <meta name="msapplication-TileColor" content="#0033A0">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "JAVEROO",
+        "alternateName": "Startup Digitale BF",
+        "url": "https://javeroo.com",
+        "logo": "https://javeroo.com/logo.png",
+        "description": "Agence digitale premium à Ouagadougou, Burkina Faso. Création de sites web, design graphique, community management et formations.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ouagadougou",
+            "addressRegion": "Centre",
+            "addressCountry": "BF"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+226-65712958",
+            "contactType": "customer service",
+            "areaServed": "BF",
+            "availableLanguage": "French"
+        },
+        "sameAs": [
+            "https://www.facebook.com/javeroo",
+            "https://www.instagram.com/javeroo",
+            "https://www.tiktok.com/@javeroo"
+        ],
+        "foundingDate": "2026",
+        "slogan": "Toujours en évolution"
+    }
+    </script>
+
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <p>Ceci est la page web de javeroo</p>
+
+    <!-- Custom Cursor -->
+    <div id="cursor" class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- Page Loader -->
+    <div id="loader" class="page-loader">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-text">
+            <span class="loader-letter">J</span>
+            <span class="loader-letter">A</span>
+            <span class="loader-letter">V</span>
+            <span class="loader-letter">E</span>
+            <span class="loader-letter">R</span>
+            <span class="loader-letter">O</span>
+            <span class="loader-letter">O</span>
+        </div>
+        <p class="loader-tagline">TOUJOURS EN ÉVOLUTION</p>
+        <div class="loader-bar">
+            <div class="loader-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Starfield Background -->
+    <canvas id="starfield"></canvas>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="nav-logo magnetic-btn">
+            <img src="logo.png" alt="JAVEROO Logo" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="#hero" class="nav-link active" data-section="hero">Accueil</a>
+            <a href="#services" class="nav-link" data-section="services">Services</a>
+            <a href="#equipe" class="nav-link" data-section="equipe">Équipe</a>
+            <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        </div>
+        <div class="nav-cta">
+            <a href="#contact" class="btn btn-nav magnetic-btn">Nous contacter<span class="btn-glow"></span></a>
+        </div>
+        <div class="nav-burger" id="nav-burger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="#hero" class="mobile-link">Accueil</a>
+            <a href="#services" class="mobile-link">Services</a>
+            <a href="#equipe" class="mobile-link">Équipe</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="hero" class="section hero-section">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">
+                    <span class="hero-letter">J</span>
+                    <span class="hero-letter">A</span>
+                    <span class="hero-letter">V</span>
+                    <span class="hero-letter">E</span>
+                    <span class="hero-letter">R</span>
+                    <span class="hero-letter">O</span>
+                    <span class="hero-letter">O</span>
+                </h1>
+            </div>
+            <p class="hero-subtitle" id="hero-subtitle">Votre partenaire digital au Burkina Faso</p>
+            <p class="hero-tagline" id="hero-tagline">TOUJOURS EN ÉVOLUTION</p>
+            <div id="hero-cta" class="hero-buttons">
+                <a href="#services" class="btn btn-hero magnetic-btn">Découvrir nos services<span class="btn-glow"></span></a>
+                <a href="#contact" class="btn btn-secondary magnetic-btn">Nous contacter<span class="btn-glow"></span></a>
+            </div>
+        </div>
+        <div class="scroll-indicator" id="scroll-indicator">
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ============ SERVICES SECTION ============ -->
+    <section id="services" class="section services-section">
+        <canvas id="services-canvas" class="section-canvas"></canvas>
+        <div class="section-header">
+            <span class="section-label">01 — CE QUE NOUS FAISONS</span>
+            <h2 class="section-title">L'innovation <span class="text-gradient">digitale</span> à votre portée</h2>
+            <p class="section-desc">Applications web, mobile et desktop, intelligence artificielle, automatisation, design — nous construisons votre futur numérique.</p>
+        </div>
+
+        <!-- Services Grid Cards -->
+        <div class="services-cards">
+            <div class="svc-card" data-svc="1">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="40" height="28" rx="3" stroke="currentColor" stroke-width="2"/><line x1="4" y1="30" x2="44" y2="30" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="34" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="18" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+                </div>
+                <h3>Applications Web</h3>
+                <p>Sites vitrines, plateformes SaaS, e-commerce, dashboards et web apps sur mesure.</p>
+            </div>
+            <div class="svc-card" data-svc="2">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><rect x="14" y="4" width="20" height="36" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="34" r="2" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+                </div>
+                <h3>Applications Mobiles</h3>
+                <p>Apps iOS & Android natives et cross-platform (React Native, Flutter).</p>
+            </div>
+            <div class="svc-card" data-svc="3">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="28" rx="2" stroke="currentColor" stroke-width="2"/><rect x="10" y="36" width="28" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M16 20l4 4-4 4M24 28h8" stroke="currentColor" stroke-width="1.5" opacity="0.7"/></svg>
+                </div>
+                <h3>Applications Desktop</h3>
+                <p>Logiciels Windows, Mac & Linux avec Electron, Tauri et solutions métier.</p>
+            </div>
+            <div class="svc-card svc-card-accent" data-svc="4">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="20" r="10" stroke="currentColor" stroke-width="2"/><path d="M18 20c0-3.3 2.7-6 6-6M24 30v8M16 42h16" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="20" r="3" fill="currentColor" opacity="0.3"/><path d="M8 14l4 2M36 14l4-2M8 26l4-2M36 26l4 2" stroke="currentColor" stroke-width="1" opacity="0.4"/></svg>
+                </div>
+                <span class="svc-badge">Nouveau</span>
+                <h3>Intelligence Artificielle</h3>
+                <p>Intégration IA, chatbots intelligents, vision par ordinateur, analyse prédictive et agents automatisés.</p>
+            </div>
+            <div class="svc-card" data-svc="5">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><path d="M12 28l8-8 6 6 10-14" stroke="currentColor" stroke-width="2"/><rect x="8" y="8" width="32" height="32" rx="3" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="20" cy="20" r="2" fill="currentColor" opacity="0.5"/><circle cx="26" cy="26" r="2" fill="currentColor" opacity="0.5"/></svg>
+                </div>
+                <h3>Automatisation</h3>
+                <p>Automatisez vos processus métier, workflows, tâches répétitives avec des solutions sur mesure.</p>
+            </div>
+            <div class="svc-card" data-svc="6">
+                <div class="svc-icon">
+                    <svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="20" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="20" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="32" r="8" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <h3>Design & Branding</h3>
+                <p>Logos, chartes graphiques, affiches, UI/UX design pour une identité visuelle forte.</p>
+            </div>
+        </div>
+
+        <!-- Poster Showcases -->
+        <div class="service-showcase">
+            <div class="showcase-row" data-showcase="1">
+                <div class="showcase-image">
+                    <img src="poster-siteweb.jpeg" alt="Création de sites web et applications par JAVEROO" loading="lazy">
+                </div>
+                <div class="showcase-text">
+                    <span class="showcase-tag">Applications & Sites Web</span>
+                    <h3 class="showcase-title">Du concept au déploiement</h3>
+                    <p class="showcase-desc">Nous concevons et développons des applications web, mobiles et desktop de A à Z. Architecture moderne, interfaces fluides, performance optimale.</p>
+                    <a href="#contact" class="btn btn-outline">Démarrer un projet</a>
+                </div>
+            </div>
+
+            <div class="showcase-row reverse" data-showcase="2">
+                <div class="showcase-image">
+                    <img src="poster-design.jpeg" alt="Design graphique et identité visuelle par JAVEROO" loading="lazy">
+                </div>
+                <div class="showcase-text">
+                    <span class="showcase-tag">Design & Identité</span>
+                    <h3 class="showcase-title">Votre marque, notre art</h3>
+                    <p class="showcase-desc">De l'identité visuelle aux affiches publicitaires, nous créons des designs qui captent l'attention et racontent votre histoire.</p>
+                    <a href="#contact" class="btn btn-outline">Demander un devis</a>
+                </div>
+            </div>
+
+            <div class="showcase-row" data-showcase="3">
+                <div class="showcase-image">
+                    <img src="poster-gestion-pages.jpeg" alt="Community management par JAVEROO" loading="lazy">
+                </div>
+                <div class="showcase-text">
+                    <span class="showcase-tag">Community Management</span>
+                    <h3 class="showcase-title">Vos pages, notre expertise</h3>
+                    <p class="showcase-desc">Gestion complète de vos réseaux sociaux — Facebook, Instagram, TikTok. Stratégie, contenu, engagement. Vous travaillez, nous gérons.</p>
+                    <a href="#contact" class="btn btn-outline">Nous confier vos pages</a>
+                </div>
+            </div>
+
+            <div class="showcase-row reverse" data-showcase="4">
+                <div class="showcase-image">
+                    <img src="poster-accompagnement.jpeg" alt="Accompagnement digital par JAVEROO" loading="lazy">
+                </div>
+                <div class="showcase-text">
+                    <span class="showcase-tag">Accompagnement & IA</span>
+                    <h3 class="showcase-title">L'IA au service de votre business</h3>
+                    <p class="showcase-desc">Intégration d'intelligence artificielle, automatisation de processus, chatbots, analyse de données. Nous propulsons votre entreprise dans le futur.</p>
+                    <a href="#contact" class="btn btn-outline">Explorer les possibilités</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TRUST / CONFIANCE SECTION ============ -->
+    <section id="confiance" class="section trust-section">
+        <canvas id="trust-canvas" class="section-canvas"></canvas>
+        <div class="trust-inner">
+            <div class="trust-image">
+                <img src="poster-confiance.jpeg" alt="Faites-nous confiance - JAVEROO partenaire digital" loading="lazy">
+            </div>
+            <div class="trust-content">
+                <span class="section-label">POURQUOI NOUS ?</span>
+                <h2 class="section-title">Faites-nous <span class="text-gradient">confiance</span></h2>
+                <p class="section-desc" style="max-width:none;">Plus qu'une agence, nous sommes votre partenaire digital. Nous mettons notre expertise au service de votre croissance.</p>
+                <div class="trust-stats">
+                    <div class="trust-stat">
+                        <span class="trust-number" data-target="50">0</span>
+                        <span class="trust-label">Projets réalisés</span>
+                    </div>
+                    <div class="trust-stat">
+                        <span class="trust-number" data-target="30">0</span>
+                        <span class="trust-label">Clients satisfaits</span>
+                    </div>
+                    <div class="trust-stat">
+                        <span class="trust-number" data-target="6">0</span>
+                        <span class="trust-label">Experts dans l'équipe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ EQUIPE SECTION ============ -->
+    <section id="equipe" class="section equipe-section">
+        <div class="section-header">
+            <span class="section-label">02 — NOTRE ÉQUIPE</span>
+            <h2 class="section-title">Les <span class="text-gradient">architectes</span> du digital</h2>
+        </div>
+        <div class="equipe-scene-wrapper">
+            <canvas id="equipe-canvas"></canvas>
+            <div id="equipe-orbit">
+                <div class="equipe-center-logo">
+                    <img src="logo.png" alt="JAVEROO" class="equipe-logo-img">
+                </div>
+                <div class="equipe-member" data-name="KABORE A. Serge" data-role="DIRECTEUR GÉNÉRAL" data-photo="serge.jpeg">
+                    <div class="member-sphere"><img src="serge.jpeg" alt="Serge" class="member-photo"></div>
+                    <span class="member-label">KABORE A.S.</span>
+                </div>
+                <div class="equipe-member" data-name="DABRE P.C. Salvador" data-role="SECRÉTAIRE GÉNÉRAL" data-photo="Charliesalvador.jpeg">
+                    <div class="member-sphere"><img src="Charliesalvador.jpeg" alt="Salvador" class="member-photo"></div>
+                    <span class="member-label">DABRE S.</span>
+                </div>
+                <div class="equipe-member" data-name="NIKIEMA Elvis Jethro" data-role="GRAPHISTE / DESIGNER" data-photo="elvisjetro.jpeg">
+                    <div class="member-sphere"><img src="elvisjetro.jpeg" alt="Elvis" class="member-photo"></div>
+                    <span class="member-label">NIKIEMA E.J.</span>
+                </div>
+                <div class="equipe-member" data-name="KONKOBO Franck Auguste" data-role="DÉV. FRONTEND + LOGISTIQUE" data-photo="Auguste.jpeg">
+                    <div class="member-sphere"><img src="Auguste.jpeg" alt="Franck" class="member-photo"></div>
+                    <span class="member-label">KONKOBO F.A.</span>
+                </div>
+                <div class="equipe-member" data-name="OUEDRAOGO Cheik B." data-role="DÉVELOPPEUR BACKEND" data-photo="Bonaventure.jpeg">
+                    <div class="member-sphere"><img src="Bonaventure.jpeg" alt="Cheik" class="member-photo"></div>
+                    <span class="member-label">OUEDRAOGO C.B.</span>
+                </div>
+                <div class="equipe-member" data-name="YARGA Kim Josaphat" data-role="DÉVELOPPEUR BACKEND" data-photo="KimJosaphat.jpeg">
+                    <div class="member-sphere"><img src="KimJosaphat.jpeg" alt="Kim" class="member-photo"></div>
+                    <span class="member-label">YARGA K.J.</span>
+                </div>
+            </div>
+            <div class="equipe-detail" id="equipe-detail">
+                <div class="detail-photo-wrapper">
+                    <img src="" alt="" class="detail-photo" id="detail-photo">
+                </div>
+                <h3 class="detail-name" id="detail-name"></h3>
+                <p class="detail-role" id="detail-role"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA SECTION ============ -->
+    <section id="contact" class="section cta-section">
+        <canvas id="cta-canvas"></canvas>
+        <div class="cta-content">
+            <div class="cta-title">
+                <span class="cta-word">Prêt</span>
+                <span class="cta-word">à</span>
+                <span class="cta-word">lancer</span>
+                <span class="cta-word">votre</span>
+                <span class="cta-word cta-word-accent">projet</span>
+                <span class="cta-word">?</span>
+            </div>
+            <p class="cta-subtitle">Contactez-nous dès aujourd'hui</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/22665712958" target="_blank" rel="noopener" class="btn btn-hero magnetic-btn">
+                    WhatsApp : +226 65 71 29 58
+                    <span class="btn-glow"></span>
+                </a>
+                <a href="mailto:agencejaveroo@gmail.com" class="btn btn-secondary magnetic-btn">
+                    agencejaveroo@gmail.com
+                    <span class="btn-glow"></span>
+                </a>
+            </div>
+            <div class="cta-social">
+                <a href="https://www.instagram.com/javeroo" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+                </a>
+                <a href="https://www.facebook.com/javeroo" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@javeroo" target="_blank" rel="noopener" aria-label="TikTok">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png" alt="JAVEROO" class="footer-logo">
+                <span class="footer-tagline">Toujours en évolution</span>
+            </div>
+            <div class="footer-info">
+                <p>© 2026 JAVEROO — Startup Digitale BF · Ouagadougou / Bobo-Dioulasso</p>
+                <p>+226 65 71 29 58 / 52 38 47 09 · agencejaveroo@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
+
 </html>
