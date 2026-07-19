@@ -141,7 +141,6 @@ function initHeroScene() {
     const pos = new Float32Array(pCount*3);
     const cols = new Float32Array(pCount*3);
     const sizes = new Float32Array(pCount);
-    const speeds = new Float32Array(pCount);
 
     for (let i = 0; i < pCount; i++) {
         const theta = Math.random()*Math.PI*2;
@@ -156,7 +155,6 @@ function initHeroScene() {
         else if (c < 0.85) { cols[i*3]=0.4; cols[i*3+1]=0.7; cols[i*3+2]=1; }
         else { cols[i*3]=0.7; cols[i*3+1]=0.85; cols[i*3+2]=1; }
         sizes[i] = Math.random()*1.2+0.2;
-        speeds[i] = (Math.random()-0.5)*0.02;
     }
 
     pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
@@ -303,7 +301,6 @@ function initSmoothScroll() {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time*1000); });
     gsap.ticker.lagSmoothing(0);
-    return lenis;
 }
 
 // ============ NAVIGATION ============
