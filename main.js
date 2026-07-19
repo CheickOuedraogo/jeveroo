@@ -107,8 +107,21 @@ function initStarfield() {
 }
 
 // ============ THREE.JS HERO — TORUS KNOT + PARTICLES ============
+function supportsWebGL() {
+    try {
+        const c = document.createElement('canvas');
+        return !!(c.getContext('webgl') || c.getContext('experimental-webgl'));
+    } catch(e) { return false; }
+}
+
 function initHeroScene() {
-    if (isMobile) { initHeroCanvasFallback(); return; }
+    if (supportsWebGL()) {
+        try { initHeroScene3D(); return; } catch(e) { /* fallback below */ }
+    }
+    initHeroCanvasFallback();
+}
+
+function initHeroScene3D() {
     const canvas = document.getElementById('hero-canvas');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -141,7 +154,6 @@ function initHeroScene() {
     const pos = new Float32Array(pCount*3);
     const cols = new Float32Array(pCount*3);
     const sizes = new Float32Array(pCount);
-    const speeds = new Float32Array(pCount);
 
     for (let i = 0; i < pCount; i++) {
         const theta = Math.random()*Math.PI*2;
@@ -156,7 +168,6 @@ function initHeroScene() {
         else if (c < 0.85) { cols[i*3]=0.4; cols[i*3+1]=0.7; cols[i*3+2]=1; }
         else { cols[i*3]=0.7; cols[i*3+1]=0.85; cols[i*3+2]=1; }
         sizes[i] = Math.random()*1.2+0.2;
-        speeds[i] = (Math.random()-0.5)*0.02;
     }
 
     pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
@@ -259,16 +270,44 @@ function initHeroCanvasFallback() {
     function resize() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
     resize(); window.addEventListener('resize', resize);
 
+    const area = canvas.width * canvas.height;
+    const numParticles = Math.min(Math.floor(area / 12000), 200);
+
     const particles = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < numParticles; i++) {
         particles.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*2+0.5, speedX:(Math.random()-0.5)*0.3, speedY:(Math.random()-0.5)*0.3, hue:Math.random()>0.5?220:210 });
+    }
+
+    const cx0 = canvas.width/2, cy0 = canvas.height/2;
+    const rings = [
+        { r: Math.min(canvas.width, canvas.height)*0.08, rot:0, speed:0.001 },
+        { r: Math.min(canvas.width, canvas.height)*0.14, rot:0, speed:-0.0007 },
+        { r: Math.min(canvas.width, canvas.height)*0.22, rot:0, speed:0.0005 }
+    ];
+
+    function drawWireframeTorus(cx, cy, r1, r2, segments, rot) {
+        ctx.beginPath();
+        for (let i = 0; i <= segments; i++) {
+            const a = (i/segments)*Math.PI*2;
+            const x = cx + (r1 + r2*Math.cos(a))*Math.cos(rot);
+            const y = cy + (r1 + r2*Math.cos(a))*Math.sin(rot)*0.4;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
     }
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const cx=canvas.width/2, cy=canvas.height/2, time=Date.now()*0.001;
-        ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1;
-        for(let i=0;i<3;i++) { ctx.beginPath(); ctx.arc(cx,cy,80+i*25,0,Math.PI*2); ctx.stroke(); }
+        const time = Date.now()*0.001;
+
+        rings.forEach(ring => {
+            ring.rot += ring.speed;
+            ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+            ctx.lineWidth = 1;
+            drawWireframeTorus(cx0, cy0, ring.r, ring.r*0.3, 60, ring.rot);
+            drawWireframeTorus(cx0, cy0, ring.r, ring.r*0.3, 60, ring.rot + Math.PI/2);
+        });
+
         particles.forEach(p => {
             p.x+=p.speedX; p.y+=p.speedY;
             if(p.x<0||p.x>canvas.width) p.speedX*=-1;
@@ -277,6 +316,22 @@ function initHeroCanvasFallback() {
             ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
             ctx.fillStyle=`hsla(${p.hue},100%,70%,${alpha})`; ctx.fill();
         });
+
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i+1; j < particles.length; j++) {
+                const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y;
+                const dist = Math.sqrt(dx*dx+dy*dy);
+                if (dist < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255,255,255,${0.06*(1-dist/100)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
         requestAnimationFrame(animate);
     }
     animate();
@@ -303,7 +358,6 @@ function initSmoothScroll() {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time*1000); });
     gsap.ticker.lagSmoothing(0);
-    return lenis;
 }
 
 // ============ NAVIGATION ============
