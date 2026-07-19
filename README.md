@@ -1,6 +1,6 @@
 # JAVEROO
 
-**Agence Digitale Premium — Burkina Faso**
+**Agence Digitale Spécialisée — Burkina Faso**
 Ouagadougou / Bobo-Dioulasso
 
 > *Toujours en évolution*
