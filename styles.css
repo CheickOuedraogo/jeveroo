@@ -144,6 +144,7 @@ body::after {
 .svc-card p { font-size:0.9rem; line-height:1.7; color:var(--text-secondary); position:relative; z-index:1; }
 .svc-card-accent { border-color:rgba(0,51,160,0.15); background:linear-gradient(135deg, rgba(0,51,160,0.03), rgba(26,95,255,0.06)); }
 .svc-card-accent:hover { box-shadow:0 20px 60px rgba(0,51,160,0.15), 0 0 40px rgba(26,95,255,0.08); }
+.services-cards > .svc-card:last-child:nth-child(3n+1) { grid-column:2; }
 .svc-badge { position:absolute; top:16px; right:16px; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; background:var(--bg-navy); color:#FFF; padding:4px 12px; border-radius:20px; z-index:2; }
 
 .service-showcase { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:100px; }
@@ -239,6 +240,7 @@ body::after {
     .section-header { padding:80px 20px 0; margin-bottom:40px; }
     .services-section { padding:0 20px 80px; }
     .services-cards { grid-template-columns:1fr; margin-bottom:60px; }
+    .services-cards > .svc-card:last-child:nth-child(3n+1) { grid-column:auto; }
     .showcase-row, .showcase-row.reverse { grid-template-columns:1fr; direction:ltr; gap:30px; }
     .showcase-title { font-size:1.5rem; }
     .trust-section { padding:80px 20px; }
